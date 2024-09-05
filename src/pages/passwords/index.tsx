@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -10,6 +10,7 @@ import PasswordItem from './components/passwordsItem';
 
 export function Passwords() {
     const [listPasswords, setListPasswords] = useState([]);
+    const [showValue, setShowValue] = useState(false)
     const isFocused = useIsFocused();
 
     const { getItens, removeItem } = useStorage();
@@ -36,15 +37,25 @@ export function Passwords() {
                 <Text style={styles.title}>MINHAS SENHAS</Text>
             </View>
 
-            <View style={styles.content}>
-                <FlatList
+            <TouchableOpacity style={styles.content} onPress={() => setShowValue(!showValue)}>
+
+            <FlatList
                 style={{ flex: 1, paddingTop: 14, }} 
+                
                 data={listPasswords}
                 keyExtractor={ (item) => String(item)}
-                renderItem={ ({item}) => <PasswordItem data={item} removePassword={() => handleDeletePassword(item)}></PasswordItem>}>
+                renderItem={ ({item}) => showValue ? (
+
+<PasswordItem data={item} removePassword={() => handleDeletePassword(item)}></PasswordItem>
+                ): (
+                    <View style={styles.hindPassowrd} ></View>
+                )
+            }>
 
                 </FlatList>
-            </View>
+
+                
+            </TouchableOpacity>
         </SafeAreaView>
     )
 }
@@ -68,5 +79,14 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingLeft: 14,
         paddingRight: 14,
+    },
+
+    hindPassowrd: {
+        paddingVertical: 30,
+        marginTop: 6,
+        height: 20,
+        backgroundColor: '#cfcfcf',
+        borderRadius: 8,
+        width: '100%',
     }
 })

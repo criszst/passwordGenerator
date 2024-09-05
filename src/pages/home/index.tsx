@@ -38,7 +38,7 @@ export function Home() {
       <View style={styles.area}> 
         <Slider
         style={{height: 50}}
-        minimumValue={6}
+        minimumValue={6}  
         maximumValue={20}
         maximumTrackTintColor='#ff0000'
         minimumTrackTintColor='#000'
@@ -69,7 +69,7 @@ export function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#efe5f4',
     justifyContent: 'center',
     alignItems: 'center',
   },
